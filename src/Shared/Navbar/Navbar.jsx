@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import  defaultUser from '../../assets/pictures/user.png'
 
 const Navbar = () => {
@@ -8,8 +8,11 @@ const Navbar = () => {
      <li><NavLink to={'/'}>Home</NavLink></li>
      <li><NavLink to={'/about'}>About</NavLink></li>
      <li><NavLink to={'/career'}>Career</NavLink></li>
-    
+ 
     </>
+
+    const navigate=useNavigate()
+
     return (
         <div className="navbar mt-4 mb-16">
   <div className="navbar-start">
@@ -40,7 +43,7 @@ const Navbar = () => {
             src={defaultUser} />
         </div>
         </div>
-    <button className='btn bg-[#403F3F] text-lg text-white px-8'>Login</button>
+    <button  onClick={()=>navigate('/login')} className='btn bg-[#403F3F] text-lg text-white px-8'>Login</button>
   </div>
 </div>
     );

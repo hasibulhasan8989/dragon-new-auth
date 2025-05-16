@@ -23,7 +23,7 @@ const LeftSideContent = () => {
           <h1 className="text-xl font-semibold">All Category {category.length}</h1>
           <div className="w-5/6 mx-auto">
             {
-            category.map(ct=><NavLink to={`category${ct.id}`} className={'block p-3 mt-1 text-[#9F9F9F] '}>{ct.name}</NavLink>)
+            category.map(ct=><NavLink key={ct.id} to={`category${ct.id}`} className={'block p-3 mt-1 text-[#9F9F9F] '}>{ct.name}</NavLink>)
            }
           </div>
 
