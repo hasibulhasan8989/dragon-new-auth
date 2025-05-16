@@ -1,9 +1,10 @@
 import { useContext } from "react";
 import { AuthContext } from "../Layouts/AuthProvider";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate,useLocation } from "react-router-dom";
 
 
 const PrivateRoute = ({children}) => {
+  
     const location=useLocation()
     
     const {currentUser,loading}=useContext(AuthContext)
@@ -11,7 +12,7 @@ const PrivateRoute = ({children}) => {
 
     if(loading){
       return  <div className="min-h-screen flex items-center justify-center">
-         <span class="loading   loading-spinner loading-xl"></span>
+         <span className="loading   loading-spinner loading-xl"></span>
       </div>
 
     }

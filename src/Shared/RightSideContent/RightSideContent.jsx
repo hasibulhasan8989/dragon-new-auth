@@ -5,7 +5,8 @@ import QZone3 from '../../assets/pictures/qZone3.png'
 import bg from '../../assets/pictures/bg.png'
 
 
-const RightSideContent = () => {
+const RightSideContent = ({display}) => {
+  console.log(display)
   return (
     <div>
       {/* Login with section */}
@@ -59,7 +60,8 @@ const RightSideContent = () => {
 
         {/* last section */}
 
-        <div className="w-full min-h-[509px] bg-no-repeat bg-cover bg-center mt-6  text-white" style={{backgroundImage:`url(${bg})`}}>
+        {
+          display ||<div className="w-full min-h-[509px] bg-no-repeat bg-cover bg-center mt-6  text-white" style={{backgroundImage:`url(${bg})`}}>
            <div className="py-16 px-8 text-center space-y-5">
             <h1 className="text-3xl font-bold">Create an Amazing Newspaper</h1>
             <p className="text-lg">
@@ -70,6 +72,9 @@ const RightSideContent = () => {
            </div>
            
         </div>
+        }
+
+        
 
       </div>
    
