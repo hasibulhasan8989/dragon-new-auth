@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import  defaultUser from '../../assets/pictures/user.png'
+import { AuthContext } from '../../Layouts/AuthProvider';
 
 const Navbar = () => {
 
@@ -12,6 +13,7 @@ const Navbar = () => {
     </>
 
     const navigate=useNavigate()
+     const{currentUser,logOut}=useContext(AuthContext)
 
     return (
         <div className="navbar mt-4 mb-16">
@@ -36,14 +38,17 @@ const Navbar = () => {
     </ul>
   </div>
   <div className="navbar-end">
-    <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+    <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar mr-3">
         <div className="w-10 rounded-full">
           <img
             alt="user"
             src={defaultUser} />
         </div>
         </div>
-    <button  onClick={()=>navigate('/login')} className='btn bg-[#403F3F] text-lg text-white px-8'>Login</button>
+        {
+          currentUser ?  <button  onClick={()=>logOut()} className='btn bg-[#9b2f2f] text-lg text-white px-8'>Signout</button>  :  <button  onClick={()=>navigate('/login')} className='btn bg-[#403F3F] text-lg text-white px-8'>Login</button>
+        }
+   
   </div>
 </div>
     );

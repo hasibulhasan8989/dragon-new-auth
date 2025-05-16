@@ -1,35 +1,54 @@
-import { createContext } from "react";
+import { createContext, useEffect, useState } from "react";
 import app from "../Firebase/firebase.config";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 
+const AuthContext = createContext(null);
 
+const AuthProvider = ({ children }) => {
+  const [currentUser, setCurrentUser] = useState(null);
+  const[loading,setLoading]=useState(true)
 
-const AuthContext=createContext(null)
+  const auth = getAuth(app);
 
-const AuthProvider = ({children}) => {
+  const registerWithEmail = (email, password) => {
+    setLoading(true)
+    return createUserWithEmailAndPassword(auth, email, password);
+  };
 
-    
-     const auth =getAuth(app);
+  useEffect(() => {
+    const unSubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+      console.log("state changed", user);
+      setLoading(false)
+    });
+    return () => unSubscribe();
+  }, [auth]);
 
-     const registerWithEmail=(email,password)=>{
-       return createUserWithEmailAndPassword(auth,email,password)
-     }
+  const logInWithEmail = (email,password) => {
+    setLoading(true)
+    return signInWithEmailAndPassword(auth,email,password)
+   };
 
+   const logOut=()=>{
+      setLoading(true)
+     return  signOut(auth)
+   }
 
+  const authCollection = {
+    registerWithEmail,
+    currentUser,
+    logInWithEmail,
+    logOut,
+    loading
 
-
-
-
-
-    const authCollection ={ registerWithEmail   }
-    return (
-        <AuthContext value={authCollection}>
-              {children}
-        </AuthContext>
-
-           
-       
-    );
+  };
+  return <AuthContext value={authCollection}>{children}</AuthContext>;
 };
 
-export {AuthProvider ,AuthContext}  ;
+export { AuthProvider, AuthContext };
